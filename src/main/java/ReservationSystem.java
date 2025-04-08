@@ -1,3 +1,5 @@
+import exceptions.DuplicateUserIDException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -19,9 +21,25 @@ public class ReservationSystem {
         scanner = new Scanner(System.in);
         date = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-        workspaces.add(new Workspace(1, "Open space", 10.0, true));
-        workspaces.add(new Workspace(2, "Private room", 25.0, true));
-        workspaces.add(new Workspace(3, "OMeeting room", 45.0, true));
+        try {
+            addWorkspace(new Workspace(1, "Open space", 10.0, true));
+            addWorkspace(new Workspace(2, "Private room", 25.0, true));
+            addWorkspace(new Workspace(3, "OMeeting room", 45.0, true));
+        } catch (DuplicateUserIDException e) {
+            System.out.println("Error loading workspaces" + e.getMessage());
+
+        }
+
+    }
+
+    private void addWorkspace(Workspace workspace) throws DuplicateUserIDException {
+        // Check for duplicate workspace ID
+        for (Workspace existingWorkspace : workspaces) {
+            if (existingWorkspace.getId() == workspace.getId()) {
+                throw new DuplicateUserIDException("Workspace with ID " + workspace.getId() + " already exists");
+            }
+        }
+        workspaces.add(workspace);
     }
 
     public void start() {
