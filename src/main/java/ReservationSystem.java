@@ -6,18 +6,18 @@ import java.util.List;
 import java.util.Scanner;
 
 public class ReservationSystem {
-    private List<Workspace> workspaces;
-    private List<Reservation> reservations;
+    private final List<Workspace> workspaces;
+    private final List<Reservation> reservations;
     private User currentUser;
-    private DateTimeFormatter date;
-    private Scanner scanner;
+    private final DateTimeFormatter date;
+    private final Scanner scanner;
 
 
     public ReservationSystem() {
         workspaces = new ArrayList<>();
         reservations = new ArrayList<>();
         scanner = new Scanner(System.in);
-        date = DateTimeFormatter.ofPattern("yyyy-MM-DD HH:mm");
+        date = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
         workspaces.add(new Workspace(1, "Open space", 10.0, true));
         workspaces.add(new Workspace(2, "Private room", 25.0, true));
@@ -198,11 +198,11 @@ public class ReservationSystem {
     private void browseSpaces() {
         System.out.println("\nAvailable Coworking Spaces:");
         System.out.println("---------------------------------------------");
-        System.out.printf("%-5s %-20s %-10s %-15s\n", "ID", "Type", "Price", "Availability");
+        System.out.printf("%-5s %-20s %-10s %-15s %n", "ID", "Type", "Price", "Availability");
         System.out.println("---------------------------------------------");
 
         for (Workspace space : workspaces) {
-            System.out.printf("%-5d %-20s $%-9.2f %-15s\n",
+            System.out.printf("%-5d %-20s $%-9.2f %-15s %n",
                     space.getId(),
                     space.getType(),
                     space.getPrice(),
@@ -263,7 +263,7 @@ public class ReservationSystem {
     private void viewMyReservations(Customer customer) {
         System.out.println("\nMy Reservations:");
         System.out.println("---------------------------------------------------------------------------");
-        System.out.printf("%-5s %-15s %-15s %-20s %-20s\n",
+        System.out.printf("%-5s %-15s %-15s %-20s %-20s %n",
                 "ID", "Space Type", "Price", "Start Time", "End Time");
         System.out.println("---------------------------------------------------------------------------");
 
@@ -271,7 +271,7 @@ public class ReservationSystem {
 
         for (Reservation res : reservations) {
             if (res.getCustomerName().equals(customer.getName())) {
-                System.out.printf("%-5d %-15s $%-14.2f %-20s %-20s\n",
+                System.out.printf("%-5d %-15s $%-14.2f %-20s %-20s %n",
                         res.getId(),
                         res.getWorkspace().getType(),
                         res.getWorkspace().getPrice(),
@@ -313,7 +313,7 @@ public class ReservationSystem {
     private void viewAllReservations() {
         System.out.println("\nAll Reservations:");
         System.out.println("----------------------------------------------------------------------------------------");
-        System.out.printf("%-5s %-15s %-15s %-15s %-20s %-20s\n",
+        System.out.printf("%-5s %-15s %-15s %-15s %-20s %-20s %n",
                 "ID", "Customer", "Space Type", "Price", "Start Time", "End Time");
         System.out.println("----------------------------------------------------------------------------------------");
 
@@ -321,7 +321,7 @@ public class ReservationSystem {
             System.out.println("No reservations in the system yet.");
         } else {
             for (Reservation res : reservations) {
-                System.out.printf("%-5d %-15s %-15s $%-14.2f %-20s %-20s\n",
+                System.out.printf("%-5d %-15s %-15s $%-14.2f %-20s %-20s %n",
                         res.getId(),
                         res.getCustomerName(),
                         res.getWorkspace().getType(),

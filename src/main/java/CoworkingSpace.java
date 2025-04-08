@@ -1,10 +1,12 @@
-import java.util.Scanner;
-
-
 public class CoworkingSpace {
     public static void main(String[] args) {
-        ReservationSystem system = new ReservationSystem();
-        system.start();
+        try {
+            ReservationSystem system = new ReservationSystem();
+            system.start();
+        } catch (Exception e) {
+            System.err.println("Error" + e.getMessage());
+        }
+
     }
 
     }
